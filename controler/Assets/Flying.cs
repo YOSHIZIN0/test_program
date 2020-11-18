@@ -45,6 +45,17 @@ public class Flying : MonoBehaviour
         GetComponent<Rigidbody>().rotation *= AddRot;
 
         Vector3 AddPos = Vector3.zero;
+        Vector3 RLPos = Vector3.zero;
+        // 左
+        if (Input.GetAxisRaw("Mouse X") < -0.1)
+        {
+            RLPos = Vector3.left;
+        }
+        // 右
+        else if (Input.GetAxisRaw("Mouse X") > 0.1)
+        {
+            RLPos = Vector3.right;
+        }
 
         // 前進
         if (Input.GetAxisRaw("Mouse Y") < -0.1)
@@ -57,7 +68,7 @@ public class Flying : MonoBehaviour
             AddPos = Vector3.back;
         }
 
-        AddPos = GetComponent<Rigidbody>().rotation * AddPos;
+        AddPos = GetComponent<Rigidbody>().rotation * (AddPos+RLPos);
 
         // ブースト
         if (Input.GetButton("Boost"))
